@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+venv/
+env/
+
+# Data (IMPORTANT)
+data/
+outputs/generated_images/
+
+# Models (optional)
+outputs/models/*.pth
+
+# OS
+.DS_Store
+Thumbs.db
