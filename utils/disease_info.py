@@ -43,3 +43,19 @@ disease_info = {
         "severity": "Manageable if detected early."
     }
 }
+def get_disease_info(label):
+    info = disease_info.get(label)
+
+    if info:
+        return info
+
+    # fallback (for unknown diseases)
+    return {
+        "description": f"{label} is a medical condition detected by the model.",
+        "precautions": [
+            "Consult a medical professional",
+            "Follow proper diagnosis procedures",
+            "Do not rely solely on AI results"
+        ],
+        "severity": "Unknown - requires clinical evaluation"
+    }

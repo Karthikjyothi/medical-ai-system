@@ -1,34 +1,18 @@
-from utils.uge import UniversalGenerativeEngine
-import argparse
 import os
+from utils.uge import UniversalGenerativeEngine
 
-# =========================
-# ARGUMENTS (DATASET INPUT)
-# =========================
-parser = argparse.ArgumentParser()
-parser.add_argument("--data", type=str, default="data/brain_tumor/train")
-args = parser.parse_args()
-
-train_path = args.data
-
-# Extract dataset name (for logging clarity)
-dataset_name = train_path.split("/")[-2]
-
-print(f"🚀 Running UGE for dataset: {dataset_name}")
-
-# =========================
-# INIT ENGINE
-# =========================
 uge = UniversalGenerativeEngine(epochs=5)
 
-# =========================
-# TRAIN GAN ON DATASET
-# =========================
-uge.train(train_path)
+DATA_ROOT = "data"
 
-# =========================
-# GENERATE IMAGES
-# =========================
-uge.generate(dataset_name)
+datasets = [
+    d for d in os.listdir(DATA_ROOT)
+    if os.path.isdir(os.path.join(DATA_ROOT, d))
+]
 
-print("✅ UGE completed successfully!")
+for dataset in datasets:
+    train_path = os.path.join(DATA_ROOT, dataset, "train")
+
+    if os.path.exists(train_path):
+        print(f"\n🚀 Training UGE for: {dataset}")
+        uge.train(train_path)
